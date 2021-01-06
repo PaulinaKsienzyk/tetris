@@ -28,6 +28,7 @@ class Tetris {
 
             playfield.nextBlock();
             score++;
+            System.out.println("Score: " + score);
 
             boolean nextMove;
             do {
@@ -53,7 +54,7 @@ class Tetris {
 
         var score = game.play();
 
-        System.out.println("Score: " + score.points());
+        System.out.println("Total score: " + score.points());
     }
 
 }
