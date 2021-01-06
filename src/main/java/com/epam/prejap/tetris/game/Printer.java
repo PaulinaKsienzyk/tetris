@@ -42,4 +42,8 @@ public class Printer {
     void border(int width) {
         out.println("+" + "-".repeat(width) + "+");
     }
+
+    void printScore(int score) {
+        out.println("Score :" + score);
+    }
 }

@@ -22,13 +22,10 @@ class Tetris {
 
     public Score play() {
         boolean moved;
-        int score = 0;
         do {
             moved = false;
 
             playfield.nextBlock();
-            score++;
-            System.out.println("Score: " + score);
 
             boolean nextMove;
             do {
@@ -39,7 +36,7 @@ class Tetris {
 
         } while (moved);
 
-        return new Score(score);
+        return new Score(playfield.getScore());
     }
 
     public static void main(String[] args) {

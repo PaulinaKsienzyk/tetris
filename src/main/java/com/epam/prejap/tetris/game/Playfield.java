@@ -10,6 +10,7 @@ public class Playfield {
     private final int cols;
     private final Printer printer;
     private final BlockFeed feed;
+    private int currentScore;
 
     private Block block;
     private int row;
@@ -21,13 +22,23 @@ public class Playfield {
         this.feed = feed;
         this.printer = printer;
         grid = new byte[this.rows][this.cols];
+        currentScore = 0;
     }
 
     public void nextBlock() {
         block = feed.nextBlock();
         row = 0;
         col = (cols - block.cols()) / 2;
+        updateScore();
         show();
+    }
+
+    public void updateScore() {
+        currentScore++;
+    }
+
+    public int getScore() {
+        return currentScore;
     }
 
     public boolean move(Move move) {
@@ -85,6 +96,7 @@ public class Playfield {
     }
 
     private void show() {
+        printer.printScore(currentScore);
         forEachBrick((i, j, dot) -> grid[row + i][col + j] = dot);
         printer.draw(grid);
     }
