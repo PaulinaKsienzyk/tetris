@@ -33,7 +33,7 @@ public class Playfield {
         show();
     }
 
-    public void updateScore() {
+    private void updateScore() {
         currentScore++;
     }
 
