@@ -37,6 +37,11 @@ public class Playfield {
         currentScore++;
     }
 
+    /**
+     * Returns current number of points awarded
+     * for each block.
+     * @return current score
+     */
     public int getScore() {
         return currentScore;
     }
