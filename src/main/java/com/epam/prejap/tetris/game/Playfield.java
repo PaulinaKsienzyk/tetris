@@ -10,11 +10,11 @@ public class Playfield {
     private final int cols;
     private final Printer printer;
     private final BlockFeed feed;
-    private int currentScore;
 
     private Block block;
     private int row;
     private int col;
+    private int currentScore;
 
     public Playfield(int rows, int cols, BlockFeed feed, Printer printer) {
         this.rows = rows;

@@ -44,6 +44,6 @@ public class Printer {
     }
 
     void printScore(int score) {
-        out.println("Score :" + score);
+        out.println("Score: " + score);
     }
 }
