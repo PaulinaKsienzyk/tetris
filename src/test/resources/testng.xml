@@ -9,11 +9,13 @@
         <groups>
             <run>
                 <include name="Block"/>
+                <include name="score"/>
             </run>
         </groups>
         <classes>
             <class name="com.epam.prejap.tetris.block.LBlockTest"/>
             <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
+            <class name="com.epam.prejap.tetris.game.PlayfieldTest"/>
         </classes>
     </test>
 </suite>
