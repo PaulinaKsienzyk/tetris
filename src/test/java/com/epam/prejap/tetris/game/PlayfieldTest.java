@@ -14,19 +14,13 @@ public class PlayfieldTest {
     private final String SCORE_REGEX = "Score: \\d";
 
     private static PrintStream originalPrintStream;
+    private static PrintStream myPrintStream;
     private static ByteArrayOutputStream output;
-
-    @BeforeGroups(groups = "score")
-    public void setUpStreams() {
-        originalPrintStream = System.out;
-        output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-    }
 
     @Test(groups = "score")
     public void scoreShouldIncreaseWhenNewBlockAppears() {
         //given
-        Playfield playfield = createSamplePlayfield();
+        Playfield playfield = createSamplePlayfieldWithOutput(System.out);
         int expectedScore = 1;
 
         //when
@@ -39,8 +33,10 @@ public class PlayfieldTest {
 
     @Test(groups = "score")
     public void scoreShouldBeDisplayedWhenNewBlockAppears() {
+        setUpStreams();
+
         //given
-        Playfield playfield = createSamplePlayfield();
+        Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
 
         //when
         playfield.nextBlock();
@@ -54,11 +50,13 @@ public class PlayfieldTest {
 
     @Test(groups = "score", dataProvider = "moveValues")
     public void scoreShouldBeDisplayedAfterMove(Move move) {
+        setUpStreams();
+
         //given
-        Playfield playfield = createSamplePlayfield();
+        Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
         playfield.nextBlock();
 
-        cleanUpStreams();
+        output.reset();
 
         //when
         playfield.move(move);
@@ -68,7 +66,6 @@ public class PlayfieldTest {
         if (!Pattern.compile(SCORE_REGEX).matcher(actualString).find()) {
             fail();
         }
-
     }
 
     @DataProvider
@@ -76,16 +73,23 @@ public class PlayfieldTest {
         return Move.values();
     }
 
+    private void setUpStreams() {
+        originalPrintStream = System.out;
+        output = new ByteArrayOutputStream();
+        myPrintStream = new PrintStream(output);
+        System.setOut(myPrintStream);
+    }
+
     @AfterGroups(groups = "score")
-    public void cleanUpStreams() {
+    private void cleanUpStreams() {
         System.setOut(originalPrintStream);
     }
 
-    private Playfield createSamplePlayfield() {
+    private Playfield createSamplePlayfieldWithOutput(PrintStream printStream) {
         int rows = 10;
         int columns = 20;
         BlockFeed feed = new BlockFeed();
-        Printer printer = new Printer(System.out);
+        Printer printer = new Printer(printStream);
 
         return new Playfield(rows, columns, feed, printer);
     }
