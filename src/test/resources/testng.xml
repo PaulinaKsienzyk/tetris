@@ -10,12 +10,14 @@
             <run>
                 <include name="Block"/>
                 <include name="score"/>
+                <include name="Player"/>
             </run>
         </groups>
         <classes>
             <class name="com.epam.prejap.tetris.block.LBlockTest"/>
             <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
             <class name="com.epam.prejap.tetris.game.PlayfieldTest"/>
+            <class name="com.epam.prejap.tetris.player.RandomPlayerTest"/>
         </classes>
     </test>
 </suite>

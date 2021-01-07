@@ -8,6 +8,8 @@ import com.epam.prejap.tetris.game.Waiter;
 import com.epam.prejap.tetris.player.Player;
 import com.epam.prejap.tetris.player.RandomPlayer;
 
+import java.util.Random;
+
 class Tetris {
 
     private final Playfield playfield;
@@ -47,7 +49,7 @@ class Tetris {
         var feed = new BlockFeed();
         var printer = new Printer(System.out);
         var playfield = new Playfield(rows, cols, feed, printer);
-        var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer());
+        var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()));
 
         var score = game.play();
 
