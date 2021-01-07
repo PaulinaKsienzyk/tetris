@@ -34,12 +34,7 @@ public class Playfield {
         currentScore = referee.awardPoints(currentScore);
         show();
     }
-
-    /**
-     * Returns current number of points awarded
-     * for each block.
-     * @return current score
-     */
+    
     public int getScore() {
         return currentScore;
     }
