@@ -10,6 +10,7 @@ public class Playfield {
     private final int cols;
     private final Printer printer;
     private final BlockFeed feed;
+    private final Referee referee;
 
     private Block block;
     private int row;
@@ -19,22 +20,19 @@ public class Playfield {
     public Playfield(int rows, int cols, BlockFeed feed, Printer printer) {
         this.rows = rows;
         this.cols = cols;
+        this.currentScore = 0;
         this.feed = feed;
         this.printer = printer;
         grid = new byte[this.rows][this.cols];
-        currentScore = 0;
+        referee = new Referee();
     }
 
     public void nextBlock() {
         block = feed.nextBlock();
         row = 0;
         col = (cols - block.cols()) / 2;
-        updateScore();
+        currentScore = referee.awardPoints();
         show();
-    }
-
-    private void updateScore() {
-        currentScore++;
     }
 
     /**
@@ -57,7 +55,6 @@ public class Playfield {
         show();
         return moved;
     }
-
 
     private void moveRight() {
         move(0, 1);
