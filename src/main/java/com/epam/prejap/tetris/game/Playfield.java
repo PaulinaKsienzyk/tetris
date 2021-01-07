@@ -31,7 +31,7 @@ public class Playfield {
         block = feed.nextBlock();
         row = 0;
         col = (cols - block.cols()) / 2;
-        currentScore = referee.awardPoints();
+        currentScore = referee.awardPoints(currentScore);
         show();
     }
 
