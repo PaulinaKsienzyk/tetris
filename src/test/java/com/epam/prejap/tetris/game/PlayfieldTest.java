@@ -15,6 +15,12 @@ public class PlayfieldTest {
 
     private static PrintStream myPrintStream;
     private static ByteArrayOutputStream output;
+    private static Pattern scorePattern;
+
+    @BeforeGroups(groups = "Score")
+    public void compilePattern() {
+        scorePattern = Pattern.compile(SCORE_REGEX);
+    }
 
     @Test(groups = "Score")
     public void scoreShouldIncreaseWhenNewBlockAppears() {
@@ -42,9 +48,7 @@ public class PlayfieldTest {
         String actualString = output.toString();
 
         //then
-        if (!Pattern.compile(SCORE_REGEX).matcher(actualString).find()) {
-            fail();
-        }
+        assertTrue(scorePattern.matcher(actualString).find());
     }
 
     @Test(groups = "Score", dataProvider = "moveValues")
@@ -62,9 +66,7 @@ public class PlayfieldTest {
         String actualString = output.toString();
 
         //then
-        if (!Pattern.compile(SCORE_REGEX).matcher(actualString).find()) {
-            fail();
-        }
+        assertTrue(scorePattern.matcher(actualString).find());
     }
 
     @DataProvider
