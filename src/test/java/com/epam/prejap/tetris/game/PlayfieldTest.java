@@ -89,7 +89,7 @@ public class PlayfieldTest {
         int rows = 10;
         int columns = 20;
         BlockFeed feed = new BlockFeed();
-        Printer printer = new Printer(printStream);
+        Printer printer = new Printer(printStream, new Timer(500));
 
         return new Playfield(rows, columns, feed, printer);
     }

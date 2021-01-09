@@ -11,6 +11,7 @@
                 <include name="Block"/>
                 <include name="score"/>
                 <include name="Player"/>
+                <include name="Timer"/>
             </run>
         </groups>
         <classes>
@@ -18,6 +19,8 @@
             <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
             <class name="com.epam.prejap.tetris.game.PlayfieldTest"/>
             <class name="com.epam.prejap.tetris.player.RandomPlayerTest"/>
+            <class name="com.epam.prejap.tetris.game.PrinterTest"/>
+            <class name="com.epam.prejap.tetris.game.TimerTest"/>
         </classes>
     </test>
 </suite>
