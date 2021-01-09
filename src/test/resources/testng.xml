@@ -9,7 +9,7 @@
         <groups>
             <run>
                 <include name="Block"/>
-                <include name="score"/>
+                <include name="Score"/>
                 <include name="Player"/>
                 <include name="Timer"/>
             </run>

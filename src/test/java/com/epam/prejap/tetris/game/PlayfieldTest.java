@@ -17,7 +17,7 @@ public class PlayfieldTest {
     private static PrintStream myPrintStream;
     private static ByteArrayOutputStream output;
 
-    @Test(groups = "score")
+    @Test(groups = "Score")
     public void scoreShouldIncreaseWhenNewBlockAppears() {
         //given
         Playfield playfield = createSamplePlayfieldWithOutput(System.out);
@@ -31,7 +31,7 @@ public class PlayfieldTest {
         assertEquals(actualScore, expectedScore);
     }
 
-    @Test(groups = "score")
+    @Test(groups = "Score")
     public void scoreShouldBeDisplayedWhenNewBlockAppears() {
         setUpStreams();
 
@@ -48,7 +48,7 @@ public class PlayfieldTest {
         }
     }
 
-    @Test(groups = "score", dataProvider = "moveValues")
+    @Test(groups = "Score", dataProvider = "moveValues")
     public void scoreShouldBeDisplayedAfterMove(Move move) {
         setUpStreams();
 
@@ -80,7 +80,7 @@ public class PlayfieldTest {
         System.setOut(myPrintStream);
     }
 
-    @AfterGroups(groups = "score")
+    @AfterGroups(groups = "Score")
     private void cleanUpStreams() {
         System.setOut(originalPrintStream);
     }
