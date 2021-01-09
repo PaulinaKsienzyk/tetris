@@ -13,14 +13,13 @@ public class PlayfieldTest {
 
     private final String SCORE_REGEX = "Score: \\d";
 
-    private static PrintStream originalPrintStream;
     private static PrintStream myPrintStream;
     private static ByteArrayOutputStream output;
 
     @Test(groups = "Score")
     public void scoreShouldIncreaseWhenNewBlockAppears() {
         //given
-        Playfield playfield = createSamplePlayfieldWithOutput(System.out);
+        Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
         int expectedScore = 1;
 
         //when
@@ -74,15 +73,9 @@ public class PlayfieldTest {
     }
 
     private void setUpStreams() {
-        originalPrintStream = System.out;
         output = new ByteArrayOutputStream();
         myPrintStream = new PrintStream(output);
         System.setOut(myPrintStream);
-    }
-
-    @AfterGroups(groups = "Score")
-    private void cleanUpStreams() {
-        System.setOut(originalPrintStream);
     }
 
     private Playfield createSamplePlayfieldWithOutput(PrintStream printStream) {
