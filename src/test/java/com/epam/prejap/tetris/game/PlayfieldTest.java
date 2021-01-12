@@ -18,7 +18,9 @@ public class PlayfieldTest {
     private static Pattern scorePattern;
 
     @BeforeGroups(groups = "Score")
-    public void compilePattern() {
+    private void setUp() {
+        output = new ByteArrayOutputStream();
+        myPrintStream = new PrintStream(output);
         scorePattern = Pattern.compile(SCORE_REGEX);
     }
 
@@ -38,7 +40,6 @@ public class PlayfieldTest {
 
     @Test(groups = "Score")
     public void scoreShouldBeDisplayedWhenNewBlockAppears() {
-        setUpStreams();
 
         //given
         Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
@@ -53,7 +54,6 @@ public class PlayfieldTest {
 
     @Test(groups = "Score", dataProvider = "moveValues")
     public void scoreShouldBeDisplayedAfterMove(Move move) {
-        setUpStreams();
 
         //given
         Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
@@ -72,12 +72,6 @@ public class PlayfieldTest {
     @DataProvider
     public Object[] moveValues() {
         return Move.values();
-    }
-
-    private void setUpStreams() {
-        output = new ByteArrayOutputStream();
-        myPrintStream = new PrintStream(output);
-        System.setOut(myPrintStream);
     }
 
     private Playfield createSamplePlayfieldWithOutput(PrintStream printStream) {
