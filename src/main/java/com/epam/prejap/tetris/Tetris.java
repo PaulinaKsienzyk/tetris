@@ -39,7 +39,7 @@ class Tetris {
 
         } while (moved);
 
-        return new Score(referee.getScore());
+        return new Score(referee.currentScore());
     }
 
     /**

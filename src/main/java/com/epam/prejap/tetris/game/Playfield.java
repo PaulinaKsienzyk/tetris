@@ -3,6 +3,9 @@ package com.epam.prejap.tetris.game;
 import com.epam.prejap.tetris.block.Block;
 import com.epam.prejap.tetris.block.BlockFeed;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Playfield {
 
     private final byte[][] grid;
@@ -15,6 +18,7 @@ public class Playfield {
     private Block block;
     private int row;
     private int col;
+    private List<PlayfieldObserver> playfieldObservers;
 
     public Playfield(int rows, int cols, BlockFeed feed, Printer printer, Referee referee) {
         this.rows = rows;
@@ -23,13 +27,15 @@ public class Playfield {
         this.printer = printer;
         this.referee = referee;
         grid = new byte[this.rows][this.cols];
+        playfieldObservers = new ArrayList<>();
+        playfieldObservers.add(referee);
     }
 
     public void nextBlock() {
         block = feed.nextBlock();
         row = 0;
         col = (cols - block.cols()) / 2;
-        referee.awardPoints();
+        notifyBlockObservers();
         show();
     }
 
@@ -87,7 +93,7 @@ public class Playfield {
     }
 
     private void show() {
-        printer.printScore(referee.getScore());
+        printer.printScore(referee.currentScore());
         forEachBrick((i, j, dot) -> grid[row + i][col + j] = dot);
         printer.draw(grid);
     }
@@ -110,6 +116,10 @@ public class Playfield {
 
     private interface BrickAction {
         void act(int i, int j, byte dot);
+    }
+
+    private void notifyBlockObservers() {
+        playfieldObservers.forEach(PlayfieldObserver::newBlockAppeared);
     }
 
 }

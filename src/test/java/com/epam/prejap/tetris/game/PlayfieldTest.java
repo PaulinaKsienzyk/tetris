@@ -33,7 +33,7 @@ public class PlayfieldTest {
 
         //when
         playfield.nextBlock();
-        int actualScore = referee.getScore();
+        int actualScore = referee.currentScore();
 
         //then
         assertEquals(actualScore, expectedScore);
