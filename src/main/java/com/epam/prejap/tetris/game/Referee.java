@@ -16,7 +16,7 @@ public class Referee implements PlayfieldObserver {
         return currentScore;
     }
 
-    private void  awardPoints() {
+    private void awardPoints() {
         currentScore += 1;
     }
 }
