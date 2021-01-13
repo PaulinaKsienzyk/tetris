@@ -42,6 +42,19 @@ class Tetris {
         return new Score(referee.getScore());
     }
 
+    /**
+     * Prepares the environment and launches the game.
+     *
+     * @param args  array of strings input from the command line
+     *              <ul>
+     *                  <li>args[0] is dedicated to configuring custom navigation keys</li>
+     *                  <ul>
+     *                      <li>each key should be represented by a single character and separated by space</li>
+     *                      <li>input example: "q s d" -> none: q, left: s, right: d</li>
+     *                  </ul>
+     *              </ul>
+     * @see CommandLineAnalyst#checkArgsForNavigationKeys(String)
+     */
     public static void main(String[] args) {
         int rows = 10;
         int cols = 20;
@@ -54,10 +67,12 @@ class Tetris {
         var playfield = new Playfield(rows, cols, feed, printer, referee);
         var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);
 
-
         var score = game.play(referee);
+
+        if (args != null && args.length != 0) {
+            CommandLineAnalyst.checkArgsForNavigationKeys(args[0]);
+        }
 
         System.out.println("Total score: " + score.points());
     }
-
 }
