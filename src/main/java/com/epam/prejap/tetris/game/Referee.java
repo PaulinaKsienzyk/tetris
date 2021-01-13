@@ -1,8 +1,14 @@
 package com.epam.prejap.tetris.game;
 
-class Referee {
+public class Referee {
 
-    int awardPoints(int currentScore) {
-        return currentScore + 1;
+    private int currentScore;
+
+    void  awardPoints() {
+        currentScore += 1;
+    }
+
+    public int getScore() {
+        return currentScore;
     }
 }

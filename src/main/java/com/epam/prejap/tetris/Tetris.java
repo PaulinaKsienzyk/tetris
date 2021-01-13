@@ -21,7 +21,8 @@ class Tetris {
         this.timer = timer;
     }
 
-    public Score play() {
+    public Score play(Referee referee) {
+
         boolean moved;
         do {
             moved = false;
@@ -38,7 +39,7 @@ class Tetris {
 
         } while (moved);
 
-        return new Score(playfield.getScore());
+        return new Score(referee.getScore());
     }
 
     public static void main(String[] args) {
@@ -49,11 +50,12 @@ class Tetris {
         var timer = new Timer(delay);
         var feed = new BlockFeed();
         var printer = new Printer(System.out, timer);
-        var playfield = new Playfield(rows, cols, feed, printer);
+        var referee = new Referee();
+        var playfield = new Playfield(rows, cols, feed, printer, referee);
         var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);
 
 
-        var score = game.play();
+        var score = game.play(referee);
 
         System.out.println("Total score: " + score.points());
     }

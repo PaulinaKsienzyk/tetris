@@ -27,12 +27,13 @@ public class PlayfieldTest {
     @Test(groups = "Score")
     public void scoreShouldIncreaseWhenNewBlockAppears() {
         //given
-        Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
+        Referee referee = new Referee();
+        Playfield playfield = createSamplePlayfieldWithReferee(referee);
         int expectedScore = 1;
 
         //when
         playfield.nextBlock();
-        int actualScore = playfield.getScore();
+        int actualScore = referee.getScore();
 
         //then
         assertEquals(actualScore, expectedScore);
@@ -42,7 +43,7 @@ public class PlayfieldTest {
     public void scoreShouldBeDisplayedWhenNewBlockAppears() {
 
         //given
-        Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
+        Playfield playfield = createSamplePlayfieldWithReferee(new Referee());
 
         //when
         playfield.nextBlock();
@@ -56,7 +57,7 @@ public class PlayfieldTest {
     public void scoreShouldBeDisplayedAfterMove(Move move) {
 
         //given
-        Playfield playfield = createSamplePlayfieldWithOutput(myPrintStream);
+        Playfield playfield = createSamplePlayfieldWithReferee(new Referee());
         playfield.nextBlock();
 
         output.reset();
@@ -74,12 +75,12 @@ public class PlayfieldTest {
         return Move.values();
     }
 
-    private Playfield createSamplePlayfieldWithOutput(PrintStream printStream) {
+    private Playfield createSamplePlayfieldWithReferee(Referee referee) {
         int rows = 10;
         int columns = 20;
         BlockFeed feed = new BlockFeed();
-        Printer printer = new Printer(printStream, new Timer(500));
+        Printer printer = new Printer(myPrintStream, new Timer(500));
 
-        return new Playfield(rows, columns, feed, printer);
+        return new Playfield(rows, columns, feed, printer, referee);
     }
 }
