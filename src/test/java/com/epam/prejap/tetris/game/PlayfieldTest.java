@@ -5,6 +5,7 @@ import org.testng.annotations.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
@@ -19,8 +20,8 @@ public class PlayfieldTest {
 
     private final int rows = 10;
     private final BlockFeed feed = new BlockFeed();
-    private final Printer printer = new Printer(new PrintStream(output), new Timer(500));
     private final Referee referee = new Referee();
+    private final Printer printer = new Printer(new PrintStream(output), new Timer(500), referee);
     private Grid grid;
     private Playfield playfield;
 
@@ -29,7 +30,7 @@ public class PlayfieldTest {
     public void setUp() {
         int cols = 20;
         grid = Grid.getNewGrid(feed, rows, cols, false);
-        playfield = new Playfield(feed, printer, grid, referee);
+        playfield = new Playfield(feed, printer, grid, List.of(referee));
     }
 
     @Test(dataProvider = "arrayOfMoves")

@@ -37,7 +37,8 @@ public class PrinterTest {
     public void drawShouldPrintValidHeader(int tickDurationInMillis, int cycles, String message) {
         // given
         Timer timer = new Timer(tickDurationInMillis);
-        Printer printer = Mockito.spy(new Printer(new PrintStream(bos), timer));
+        Referee referee = new Referee();
+        Printer printer = Mockito.spy(new Printer(new PrintStream(bos), timer, referee));
         for (int i = 0; i < cycles; i++) {
             timer.tick();
         }
@@ -54,7 +55,8 @@ public class PrinterTest {
     public void checkIfPrintMethodPrintsStringWithAppropriateColor(Color color) {
         // given
         Timer timer = Mockito.mock(Timer.class);
-        Printer printer = Mockito.spy(new Printer(new PrintStream(bos), timer));
+        Referee referee = new Referee();
+        Printer printer = Mockito.spy(new Printer(new PrintStream(bos), timer, referee));
         int ansiCode = color.getAnsiCode();
         String escape =  "\u001B[";
         String finalByte = "m";

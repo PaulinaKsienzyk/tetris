@@ -12,11 +12,16 @@ public class Referee implements PlayfieldObserver {
         awardPoints();
     }
 
-    public String currentScore() {
-        return String.valueOf(currentScore);
+    int currentScore() {
+        return currentScore;
     }
 
     private void awardPoints() {
         currentScore += 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Score: " + currentScore;
     }
 }

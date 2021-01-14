@@ -11,10 +11,12 @@ public class Printer {
     private static final String BLOCK_MARK = "#";
     final PrintStream out;
     private final Timer timer;
+    private final Referee referee;
 
-    public Printer(PrintStream out, Timer timer) {
+    public Printer(PrintStream out, Timer timer, Referee referee) {
         this.out = out;
         this.timer = timer;
+        this.referee = referee;
     }
 
     void draw(byte[][] grid) {
@@ -60,12 +62,12 @@ public class Printer {
         out.println("+" + "-".repeat(width) + "+");
     }
 
-    void printScore(String score) {
-        out.println("Score: " + score);
+    void printScore() {
+        out.println(referee.toString());
     }
 
     /**
-     * Prints elapsed time in hh:mm:ss format.
+     * Prints elapsed time in hh:mm:ss format
      */
     void header() {
         Duration duration = timer.calculateElapsedDuration();

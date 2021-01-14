@@ -66,8 +66,8 @@ class Tetris {
         var timer = new Timer(delay);
 
         var feed = new BlockFeed();
-        var printer = new Printer(System.out, timer);
         var referee = new Referee();
+        var printer = new Printer(System.out, timer, referee);
         var flagPresent = Arrays.asList(args).contains("-rb") | Arrays.asList(args).contains("-RB");
         var grid = Grid.getNewGrid(feed, rows, cols, flagPresent);
 

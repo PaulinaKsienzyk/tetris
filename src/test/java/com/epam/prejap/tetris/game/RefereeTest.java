@@ -14,7 +14,7 @@ public class RefereeTest {
         int expectedScore = 1;
 
         //when
-        int actualScore = Integer.parseInt(referee.currentScore());
+        int actualScore = referee.currentScore();
 
         //then
         assertEquals(actualScore, expectedScore);
