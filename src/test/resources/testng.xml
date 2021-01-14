@@ -33,6 +33,10 @@
             <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
             <class name="com.epam.prejap.tetris.block.BlockTest"/>
             <class name="com.epam.prejap.tetris.block.BlockTestFactory"/>
+            <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
+            <class name="com.epam.prejap.tetris.block.BlockTest"/>
+            <class name="com.epam.prejap.tetris.block.BlockTestFactory"/>
+            <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
             <class name="com.epam.prejap.tetris.block.BlockFeedTestFactory"/>
             <class name="com.epam.prejap.tetris.game.PlayfieldTest"/>
             <class name="com.epam.prejap.tetris.player.RandomPlayerTest"/>
