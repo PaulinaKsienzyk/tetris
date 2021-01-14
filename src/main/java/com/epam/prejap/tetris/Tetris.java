@@ -22,13 +22,14 @@ class Tetris {
         this.timer = timer;
     }
 
-    public Score play(Referee referee) {
-
+    public Score play() {
         boolean moved;
+        int score = 0;
         do {
             moved = false;
 
             playfield.nextBlock();
+            score++;
 
             boolean nextMove;
             do {
@@ -40,7 +41,7 @@ class Tetris {
 
         } while (moved);
 
-        return new Score(referee.currentScore());
+        return new Score(score);
     }
 
     /**
@@ -72,7 +73,7 @@ class Tetris {
         var playfield = new Playfield(feed, printer, grid, referee);
         var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);
 
-        var score = game.play(referee);
+        var score = game.play();
 
         if (args.length != 0 && !args[0].equalsIgnoreCase("-rb")) {
             CommandLineAnalyst.checkArgsForNavigationKeys(args[0]);
