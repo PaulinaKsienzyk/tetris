@@ -69,7 +69,7 @@ public class PlayfieldTest {
     }
 
     @Test(groups = "Score")
-    public void scoreShouldBeDisplayedWhenNewBlockAppears() {
+    public void shouldDisplayScoreUponFirstBlockAppearing() {
 
         //when
         playfield.nextBlock();
