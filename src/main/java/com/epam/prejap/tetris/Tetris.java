@@ -6,6 +6,7 @@ import com.epam.prejap.tetris.player.Player;
 import com.epam.prejap.tetris.player.RandomPlayer;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 class Tetris {
@@ -70,7 +71,7 @@ class Tetris {
         var flagPresent = Arrays.asList(args).contains("-rb") | Arrays.asList(args).contains("-RB");
         var grid = Grid.getNewGrid(feed, rows, cols, flagPresent);
 
-        var playfield = new Playfield(feed, printer, grid, referee);
+        var playfield = new Playfield(feed, printer, grid, List.of(referee));
         var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);
 
         var score = game.play();

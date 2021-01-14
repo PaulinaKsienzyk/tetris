@@ -10,10 +10,8 @@ public class Playfield {
 
     private final Printer printer;
     private final BlockFeed feed;
-    private final Referee referee;
     private final List<PlayfieldObserver> playfieldObservers;
     private final Grid grid;
-
     private Block block;
 
     /**
@@ -21,13 +19,12 @@ public class Playfield {
      * @param printer displays grid to user via System.out
      * @param grid    starting
      */
-    public Playfield(BlockFeed feed, Printer printer, Grid grid, Referee referee) {
+    public Playfield(BlockFeed feed, Printer printer, Grid grid,
+                     List<PlayfieldObserver> playfieldObservers) {
         this.feed = feed;
         this.printer = printer;
-        this.referee = referee;
         this.grid = grid;
-        playfieldObservers = new ArrayList<>();
-        playfieldObservers.add(referee);
+        this.playfieldObservers = new ArrayList<>();
     }
 
     /**
@@ -84,7 +81,7 @@ public class Playfield {
     }
 
     private void show(Block block) {
-        printer.printScore(referee.currentScore());
+        printer.printScore();
         grid.show(block);
         printer.draw(grid.byteGrid);
     }
