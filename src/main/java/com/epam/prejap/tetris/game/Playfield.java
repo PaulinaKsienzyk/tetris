@@ -8,46 +8,53 @@ import java.util.List;
 
 public class Playfield {
 
-    private final byte[][] grid;
-    private final int rows;
-    private final int cols;
     private final Printer printer;
     private final BlockFeed feed;
     private final Referee referee;
     private final List<PlayfieldObserver> playfieldObservers;
+    private final Grid grid;
 
     private Block block;
-    private int row;
-    private int col;
 
-    public Playfield(int rows, int cols, BlockFeed feed, Printer printer, Referee referee) {
-        this.rows = rows;
-        this.cols = cols;
+    /**
+     * @param feed    block generator
+     * @param printer displays grid to user via System.out
+     * @param grid    starting
+     */
+    public Playfield(BlockFeed feed, Printer printer, Grid grid, Referee referee) {
         this.feed = feed;
         this.printer = printer;
         this.referee = referee;
-        grid = new byte[this.rows][this.cols];
+        this.grid = grid;
         playfieldObservers = new ArrayList<>();
         playfieldObservers.add(referee);
     }
 
+    /**
+     * Generates new block starting at row 0 in the center column
+     */
     public void nextBlock() {
         block = feed.nextBlock();
-        row = 0;
-        col = (cols - block.cols()) / 2;
         notifyBlockObservers();
-        show();
+        grid.newBlock(block.cols());
+        show(block);
     }
 
+    /**
+     * Shifts current block left or right one column, then down one row
+     *
+     * @param move direction of movement
+     * @return block moved down one row
+     */
     public boolean move(Move move) {
-        hide();
+        hide(block);
         boolean moved;
         switch (move) {
             case LEFT -> moveLeft();
             case RIGHT -> moveRight();
         }
         moved = moveDown();
-        show();
+        show(block);
         return moved;
     }
 
@@ -65,57 +72,21 @@ public class Playfield {
 
     private boolean move(int rowOffset, int colOffset) {
         boolean moved = false;
-        if (isValidMove(block, rowOffset, colOffset)) {
-            doMove(rowOffset, colOffset);
+        if (grid.isValidMove(block, rowOffset, colOffset)) {
+            grid.doMove(rowOffset, colOffset);
             moved = true;
         }
         return moved;
     }
 
-    private boolean isValidMove(Block block, int rowOffset, int colOffset) {
-        for (int i = 0; i < block.rows(); i++) {
-            for (int j = 0; j < block.cols(); j++) {
-                var dot = block.dotAt(i, j);
-                if (dot > 0) {
-                    int newRow = row + i + rowOffset;
-                    int newCol = col + j + colOffset;
-                    if (newRow >= rows || newCol >= cols || grid[newRow][newCol] > 0) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
+    private void hide(Block block) {
+        grid.hide(block);
     }
 
-    private void hide() {
-        forEachBrick((i, j) -> grid[row + i][col + j] = 0);
-    }
-
-    private void show() {
+    private void show(Block block) {
         printer.printScore(referee.currentScore());
-        forEachBrick((i, j) -> grid[row + i][col + j] = block.getColorId());
-        printer.draw(grid);
-    }
-
-    private void doMove(int rowOffset, int colOffset) {
-        row += rowOffset;
-        col += colOffset;
-    }
-
-    private void forEachBrick(BrickAction action) {
-        for (int i = 0; i < block.rows(); i++) {
-            for (int j = 0; j < block.cols(); j++) {
-                var dot = block.dotAt(i, j);
-                if (dot > 0) {
-                    action.act(i, j);
-                }
-            }
-        }
-    }
-
-    private interface BrickAction {
-        void act(int i, int j);
+        grid.show(block);
+        printer.draw(grid.byteGrid);
     }
 
     private void notifyBlockObservers() {

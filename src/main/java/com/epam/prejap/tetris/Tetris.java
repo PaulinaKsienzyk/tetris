@@ -5,6 +5,7 @@ import com.epam.prejap.tetris.game.*;
 import com.epam.prejap.tetris.player.Player;
 import com.epam.prejap.tetris.player.RandomPlayer;
 
+import java.util.Arrays;
 import java.util.Random;
 
 class Tetris {
@@ -61,15 +62,19 @@ class Tetris {
         int delay = 500;
 
         var timer = new Timer(delay);
+
         var feed = new BlockFeed();
         var printer = new Printer(System.out, timer);
         var referee = new Referee();
-        var playfield = new Playfield(rows, cols, feed, printer, referee);
+        var flagPresent = Arrays.asList(args).contains("-rb") | Arrays.asList(args).contains("-RB");
+        var grid = Grid.getNewGrid(feed, rows, cols, flagPresent);
+
+        var playfield = new Playfield(feed, printer, grid, referee);
         var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);
 
         var score = game.play(referee);
 
-        if (args != null && args.length != 0) {
+        if (args.length != 0 && !args[0].equalsIgnoreCase("-rb")) {
             CommandLineAnalyst.checkArgsForNavigationKeys(args[0]);
         }
 
