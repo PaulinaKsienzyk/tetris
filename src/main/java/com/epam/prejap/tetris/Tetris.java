@@ -15,22 +15,23 @@ class Tetris {
     private final Waiter waiter;
     private final Player player;
     private final Timer timer;
+    private final Referee referee;
 
-    public Tetris(Playfield playfield, Waiter waiter, Player player, Timer timer) {
+    public Tetris(Playfield playfield, Waiter waiter, Player player, Timer timer,
+                  Referee referee) {
         this.playfield = playfield;
         this.waiter = waiter;
         this.player = player;
         this.timer = timer;
+        this.referee = referee;
     }
 
     public Score play() {
         boolean moved;
-        int score = 0;
         do {
             moved = false;
 
             playfield.nextBlock();
-            score++;
 
             boolean nextMove;
             do {
@@ -41,6 +42,8 @@ class Tetris {
             } while (nextMove);
 
         } while (moved);
+
+        int score = referee.currentScore();
 
         return new Score(score);
     }
@@ -72,7 +75,8 @@ class Tetris {
         var grid = Grid.getNewGrid(feed, rows, cols, flagPresent);
 
         var playfield = new Playfield(feed, printer, grid, List.of(referee));
-        var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer);
+        var game = new Tetris(playfield, new Waiter(delay), new RandomPlayer(new Random()), timer,
+                referee);
 
         var score = game.play();
 
