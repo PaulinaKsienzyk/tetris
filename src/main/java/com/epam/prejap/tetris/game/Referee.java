@@ -12,8 +12,8 @@ public class Referee implements PlayfieldObserver {
         awardPoints();
     }
 
-    public int currentScore() {
-        return currentScore;
+    public String currentScore() {
+        return String.valueOf(currentScore);
     }
 
     private void awardPoints() {

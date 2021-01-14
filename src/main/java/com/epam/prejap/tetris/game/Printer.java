@@ -60,7 +60,7 @@ public class Printer {
         out.println("+" + "-".repeat(width) + "+");
     }
 
-    void printScore(int score) {
+    void printScore(String score) {
         out.println("Score: " + score);
     }
 
