@@ -8,12 +8,8 @@
     <test name="TetrisTests">
         <groups>
             <define name="Block">
-                <include name="BlockFeed"/>
-                <include name="LBlock"/>
-                <include name="SBlock"/>
-                <include name="IBlock"/>
-                <include name="OBlock"/>
-                <include name="JBlock"/>
+                <include name="BlockFeed" />
+                <include name="BlockShape" />
             </define>
             <define name="Player">
                 <include name="RandomPlayer"/>
@@ -34,12 +30,9 @@
             </run>
         </groups>
         <classes>
-            <class name="com.epam.prejap.tetris.block.SBlockTest"/>
-            <class name="com.epam.prejap.tetris.block.OBlockTest"/>
-            <class name="com.epam.prejap.tetris.block.JBlockTest"/>
-            <class name="com.epam.prejap.tetris.block.LBlockTest"/>
             <class name="com.epam.prejap.tetris.block.BlockFeedTest"/>
-            <class name="com.epam.prejap.tetris.block.IBlockTest"/>
+            <class name="com.epam.prejap.tetris.block.BlockTest"/>
+            <class name="com.epam.prejap.tetris.block.BlockTestFactory"/>
             <class name="com.epam.prejap.tetris.block.BlockFeedTestFactory"/>
             <class name="com.epam.prejap.tetris.game.PlayfieldTest"/>
             <class name="com.epam.prejap.tetris.player.RandomPlayerTest"/>
