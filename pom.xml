@@ -9,7 +9,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.java.version>14</project.java.version>
+        <project.java.version>15</project.java.version>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
         <!-- plugin versions should go here, so below they can be omitted -->
