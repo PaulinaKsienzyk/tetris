@@ -27,6 +27,7 @@
                 <include name="Player"/>
                 <include name="NavigationKeys"/>
                 <include name="Timer"/>
+                <include name="Color"/>
             </run>
         </groups>
         <classes>
@@ -44,6 +45,7 @@
             <class name="com.epam.prejap.tetris.game.PrinterTest"/>
             <class name="com.epam.prejap.tetris.game.TimerTest"/>
             <class name="com.epam.prejap.tetris.game.RefereeTest"/>
+            <class name="com.epam.prejap.tetris.block.Color"/>
         </classes>
     </test>
 </suite>

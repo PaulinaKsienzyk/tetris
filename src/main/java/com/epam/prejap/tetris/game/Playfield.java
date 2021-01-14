@@ -14,11 +14,11 @@ public class Playfield {
     private final Printer printer;
     private final BlockFeed feed;
     private final Referee referee;
+    private final List<PlayfieldObserver> playfieldObservers;
 
     private Block block;
     private int row;
     private int col;
-    private List<PlayfieldObserver> playfieldObservers;
 
     public Playfield(int rows, int cols, BlockFeed feed, Printer printer, Referee referee) {
         this.rows = rows;
@@ -89,12 +89,12 @@ public class Playfield {
     }
 
     private void hide() {
-        forEachBrick((i, j, dot) -> grid[row + i][col + j] = 0);
+        forEachBrick((i, j) -> grid[row + i][col + j] = 0);
     }
 
     private void show() {
         printer.printScore(referee.currentScore());
-        forEachBrick((i, j, dot) -> grid[row + i][col + j] = dot);
+        forEachBrick((i, j) -> grid[row + i][col + j] = block.getColorId());
         printer.draw(grid);
     }
 
@@ -108,18 +108,17 @@ public class Playfield {
             for (int j = 0; j < block.cols(); j++) {
                 var dot = block.dotAt(i, j);
                 if (dot > 0) {
-                    action.act(i, j, dot);
+                    action.act(i, j);
                 }
             }
         }
     }
 
     private interface BrickAction {
-        void act(int i, int j, byte dot);
+        void act(int i, int j);
     }
 
     private void notifyBlockObservers() {
         playfieldObservers.forEach(PlayfieldObserver::newBlockAppeared);
     }
-
 }
